@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AR Technologies</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page">
+
+  <h1>AR Schneider</h1>
+  <div class="metanav">
+      <a href="{{ url_for('tech') }}" >Главная</a>
+      <a href="{{ url_for('students') }}" >Студенты</a>
+      <a href="{{ url_for('schedule') }}" >Расписание</a>
+      <a href="{{ url_for('analytics') }}" >Аналитика</a>
+    {% if not session.logged_in %}
+      <a href="{{ url_for('login') }}">Вход</a>
+    {% else %}
+      <a href="{{ url_for('logout') }}">Выход</a>
+    {% endif %}
+
+
+
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_entry') }}" method="post" class="add-entry">
+      <dl>
+        <dt>Title:</dt>
+        <dd><input type="text" size="30" name="title"></dd>
+        <dt>Text:</dt>
+        <dd><textarea name="text" rows="7" cols="40"></textarea></dd>
+        <dd><input type="submit" value="Добавить работу"></dd>
+      </dl>
+    </form>
+
+  <ul class="entries">
+    {% for entry in entries %}
+    <li class="entry"><h2 id={{ entry.post_id }}>{{ entry.title }}</h2>{{ entry.text|safe }}</li>
+    {% else %}
+      <li><em>No entries here so far</em></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  
+   <h2>Войдите в систему</h2>

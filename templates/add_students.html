@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AR Technologies</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page">
+
+  <h1>AR Schneider</h1>
+  <div class="metanav">
+      <a href="{{ url_for('tech') }}" >Главная</a>
+      <a href="{{ url_for('students') }}" >Студенты</a>
+      <a href="{{ url_for('schedule') }}" >Расписание</a>
+      <a href="{{ url_for('analytics') }}" >Аналитика</a>
+    {% if not session.logged_in %}
+      <a href="{{ url_for('login') }}">Вход</a>
+    {% else %}
+      <a href="{{ url_for('logout') }}">Выход</a>
+    {% endif %}
+
+
+
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+
+  {% block body %}
+
+
+  <h2>Войдите в систему</h2>
+
+
+  {% endblock %}
+
+
+</div>
+
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>

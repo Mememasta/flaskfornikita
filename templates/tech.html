@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Главная</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page">
+
+  <h1>Главная</h1>
+  <div class="metanav">
+    <a href="{{ url_for('tech') }}" >Главная</a>
+    <a href="{{ url_for('students') }}" >Студенты</a>
+    <a href="{{ url_for('schedule') }}" >Расписание</a>
+    <a href="{{ url_for('analytics') }}" >Аналитика</a>
+    {% if not session.logged_in %}
+      <a href="{{ url_for('login') }}">Вход</a>
+    {% else %}
+      <a href="{{ url_for('logout') }}">Выход</a>
+    {% endif %}
+
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block body %}
+
+<h2>Информация</h2>
+<dt>AR (дополненная реальность) – это технология
+   добавления в поле восприятия человека виртуальной информации,
+    которая воспринимается как элементы реальной жизни.
+</dt>
+
+<h2>О проекте</h2>
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/dY6pmZD9oN8"
+frameborder="0"
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
+</iframe>
+
+  {% endblock %}
+
+
+
+</div>

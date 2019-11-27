@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<title>AR Technologies</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page">
+
+  <h1> Студенты </h1>
+  <div class="metanav">
+    <a href="{{ url_for('tech') }}" >Главная</a>
+    <a href="{{ url_for('students') }}" >Студенты</a>
+    <a href="{{ url_for('schedule') }}" >Расписание</a>
+    <a href="{{ url_for('analytics') }}" >Аналитика</a>
+    {% if not session.logged_in %}
+      <a href="{{ url_for('login') }}">Вход</a>
+    {% else %}
+      <a href="{{ url_for('logout') }}">Выход</a>
+    {% endif %}
+
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+
+  {% block body %}
+
+<h2>Найти студента:</h2>
+
+<form action="{{ url_for('search_students') }}" method="post" class="add-entry">
+<div class= "container">
+  <form method=post>
+    <input type=text placeholder="Student secondname" />
+    <input type=submit value="Search" />
+  </form>
+</div>
+
+
+<form action="{{ url_for('add_students') }}" method="post" class="add-entry">
+<h2>Добавить студента:</h2>
+  <dl>
+    <dt>Name:</dt>
+    <dd><input type="text" size="30" name="name"></dd>
+    <dt>Secondname:</dt>
+    <dd><input type="text" size="30" name="secondname"></dd>
+    <dt>Group:</dt>
+    <dd><input type="text" size="30" name="group"></dd>
+  </dl>
+  <input type="submit" value="Добавить">
+</form>
+
+{% endblock %}
+
+
+</div>
+
+
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>

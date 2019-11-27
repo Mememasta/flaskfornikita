@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AR Technologies | Login</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page">
+
+  <h1>Life is on</h1>
+  <div class="metanav">
+    <a href="{{ url_for('tech') }}" >Главная</a>
+    <a href="{{ url_for('students') }}" >Студенты</a>
+    <a href="{{ url_for('schedule') }}" >Расписание</a>
+    <a href="{{ url_for('analytics') }}" >Аналитика</a>
+
+    {% if not session.logged_in %}
+     <a href="{{ url_for('login') }}">Вход</a>
+    {% else %}
+      <a href="{{ url_for('logout') }}">Выход</a>
+    {% endif %}
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+
+  <h2>Вход</h2>
+  {% if error %}
+    <p class="error"><strong>Error:</strong> {{ error }}</p>
+  {% endif %}
+  <form action="{{ url_for('login') }}" method="post">
+    <dl>
+      <dt>Имя:</dt>
+      <dd><input type="text" name="username"></dd>
+      <dt>Пароль:</dt>
+      <dd><input type="password" name="password"></dd>
+      <dd><input type="submit" value="Login"></dd>
+    </dl>
+  </form>
+
+</div>
+
+</body>
+</html>
